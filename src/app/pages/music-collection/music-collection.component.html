@@ -1,13 +1,23 @@
-<h2>Music Collection</h2>
+<div *ngIf="category" class="back-button">
+  <a routerLink="/categories">Back to Categories</a>
+</div>
+<h2 *ngIf="category">Songs in Category: {{ category }}</h2>
+<h2 *ngIf="!category">Music Collection</h2>
 <p>Here you can find an extensive collection of your favorite tunes.</p>
 
 <div class="song-list">
-  <div *ngFor="let song of songs" class="song-item">
+  <div *ngFor="let song of filteredSongs" class="song-item">
     <div class="song-info">
-      <p>{{ song }}</p>
-      <button (click)="playSong(song)">Play</button>
+      <p><strong>{{ song.title }}</strong></p>
+<!--      <p>Category: {{ song.category }}</p>-->
+<!--      <p>Language: {{ song.language }}</p>-->
+      <button (click)="playSong(song)">
+        <a [routerLink]="['/music-collection', song.title]">Play</a>
+      </button>
     </div>
-    <audio *ngIf="currentlyPlaying === song" [src]="'assets/music/' + song" controls autoplay></audio>
+    <audio id="audio" *ngIf="currentlyPlaying?.filename === song.filename" [src]="'assets/music/' + song.filename" controls autoplay></audio>
   </div>
 </div>
+
+
 

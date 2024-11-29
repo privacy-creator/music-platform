@@ -1,0 +1,6 @@
+<h2>Music Categories</h2>
+<div class="category-list">
+  <div *ngFor="let category of categories" class="category-item">
+    <a [routerLink]="['/categories', category]">{{ category }}</a>
+  </div>
+</div>

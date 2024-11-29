@@ -1,23 +1,128 @@
 [
-  "Amor Gasolina (Remastered).mp3",
-  "Amor Gasolina.mp3",
-  "Bye-Bye, Mosquitoes!.mp3",
-  "Corona virus rising.mp3",
-  "devels media (4).mp3",
-  "Don't trust the vax.mp3",
-  "Egg raid on xr.mp3",
-  "Eggs on extinction rebelion.mp3",
-  "Gasolina y Rebelión.mp3",
-  "Hugo de kakkerlak.mp3",
-  "Klaas de kip (1).mp3",
-  "Klaas de kip.mp3",
-  "Necesitamos CO2.mp3",
-  "Needle and the damage done.mp3",
-  "No More Fear.mp3",
-  "Shifting Winds.mp3",
-  "Sly Sigrid the Serpent.mp3",
-  "Thomas.mp3",
-  "Woken is harmfull.mp3",
-  "XR Carbon Contradictions.mp3",
-  "XR stop blocking roads.mp3"
+  {
+    "filename": "Amor Gasolina (Remastered).mp3",
+    "title": "Amor Gasolina (Remastered)",
+    "category": "Reggaeton",
+    "language": "Spanish"
+  },
+  {
+    "filename": "Amor Gasolina.mp3",
+    "title": "Amor Gasolina",
+    "category": "Reggaeton",
+    "language": "Spanish"
+  },
+  {
+    "filename": "Bye-Bye, Mosquitoes!.mp3",
+    "title": "Bye-Bye, Mosquitoes!",
+    "category": "Pop",
+    "language": "English"
+  },
+  {
+    "filename": "Corona virus rising.mp3",
+    "title": "Corona Virus Rising",
+    "category": "Pop",
+    "language": "English"
+  },
+  {
+    "filename": "devels media (4).mp3",
+    "title": "Devil's Media",
+    "category": "Rock",
+    "language": "English"
+  },
+  {
+    "filename": "Don't trust the vax.mp3",
+    "title": "Don't Trust the Vax",
+    "category": "Pop",
+    "language": "English"
+  },
+  {
+    "filename": "Egg raid on xr.mp3",
+    "title": "Egg Raid on XR",
+    "category": "Punk Rock",
+    "language": "English"
+  },
+  {
+    "filename": "Eggs on extinction rebelion.mp3",
+    "title": "Eggs on Extinction Rebellion",
+    "category": "Indie",
+    "language": "English"
+  },
+  {
+    "filename": "Gasolina y Rebelión.mp3",
+    "title": "Gasolina y Rebelión",
+    "category": "Reggaeton",
+    "language": "Spanish"
+  },
+  {
+    "filename": "Hugo de kakkerlak.mp3",
+    "title": "Hugo de Kakkerlak",
+    "category": "Kids",
+    "language": "Dutch"
+  },
+  {
+    "filename": "Klaas de kip (1).mp3",
+    "title": "Klaas de Kip (Vrouw)",
+    "category": "Kids",
+    "language": "Dutch"
+  },
+  {
+    "filename": "Klaas de kip.mp3",
+    "title": "Klaas de Kip (Man)",
+    "category": "Kids",
+    "language": "Dutch"
+  },
+  {
+    "filename": "Necesitamos CO2.mp3",
+    "title": "Necesitamos CO2",
+    "category": "Reggaeton",
+    "language": "Spanish"
+  },
+  {
+    "filename": "Needle and the damage done.mp3",
+    "title": "Needle and the Damage Done",
+    "category": "Folk",
+    "language": "English"
+  },
+  {
+    "filename": "No More Fear.mp3",
+    "title": "No More Fear",
+    "category": "Pop",
+    "language": "English"
+  },
+  {
+    "filename": "Shifting Winds.mp3",
+    "title": "Shifting Winds",
+    "category": "Pop",
+    "language": "English"
+  },
+  {
+    "filename": "Sly Sigrid the Serpent.mp3",
+    "title": "Sly Sigrid the Serpent",
+    "category": "Children's",
+    "language": "English"
+  },
+  {
+    "filename": "Thomas.mp3",
+    "title": "Thomas, l'Homme de la Poubell",
+    "category": "Chanson",
+    "language": "French"
+  },
+  {
+    "filename": "Woken is harmfull.mp3",
+    "title": "Woken is Harmful",
+    "category": "Rock",
+    "language": "English"
+  },
+  {
+    "filename": "XR Carbon Contradictions.mp3",
+    "title": "XR Carbon Contradictions",
+    "category": "Rock",
+    "language": "English"
+  },
+  {
+    "filename": "XR stop blocking roads.mp3",
+    "title": "XR Stop Blocking Roads",
+    "category": "Rock",
+    "language": "English"
+  }
 ]
