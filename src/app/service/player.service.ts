@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 
 @Injectable({
   providedIn: 'root'
@@ -7,14 +7,11 @@ export class PlayerService {
   isPlaying = false;
   showPlayer = false;
   songPlaying: string = '';
-  audioSource: HTMLAudioElement = new Audio();
+  audioSource: HTMLAudioElement | undefined;
   playlist: { title: string; filename: string; id: number }[] = [];
   currentSongIndex: number = 0;
 
-  constructor() {
-    this.audioSource.addEventListener('ended', () => this.playNext());
-    this.audioSource.addEventListener('timeupdate', () => this.updateProgress());
-  }
+  constructor() {}
 
   // Add songs to the playlist
   setPlaylist(songs: { title: string; filename: string; id: number }[]): void {
@@ -22,16 +19,23 @@ export class PlayerService {
   }
 
   changeAudioSource(audioSource: string, title: string, id: any): void {
-    this.showPlayer = true;
-    this.songPlaying = title;
-    this.currentSongIndex = id;
-    document.title = title;
+    this.audioSource = document.getElementById("audio") as HTMLAudioElement;
+    console.log(this.audioSource);
+    if (this.audioSource) {
+      this.audioSource.addEventListener('ended', () => this.playNext());
+      this.audioSource.addEventListener('timeupdate', () => this.updateProgress());
+      this.showPlayer = true;
+      this.songPlaying = title;
+      this.currentSongIndex = id;
+      document.title = title;
 
-      if (this.audioSource) {
-          this.audioSource.src = `assets/music/${audioSource}`;
-          this.audioSource.play();
-          this.isPlaying = true;
-      }
+      this.audioSource.src = `assets/music/${audioSource}`;
+      this.audioSource.play().then(r => {
+        // @ts-ignore
+        // this.audioSource.muted = false;
+      });
+      this.isPlaying = true;
+    }
   }
 
   public play(): void {
@@ -56,8 +60,16 @@ export class PlayerService {
     }
   }
 
-  // Play the next song in the playlist
   playNext(): void {
+    this.currentSongIndex++;
+    if (this.currentSongIndex >= this.playlist.length) {
+      this.currentSongIndex = 0; // Loop back to the start of the playlist
+    }
+    this.playCurrentSong();
+  }
+
+  playPrev(): void {
+    this.currentSongIndex--;
     if (this.currentSongIndex >= this.playlist.length) {
       this.currentSongIndex = 0; // Loop back to the start of the playlist
     }

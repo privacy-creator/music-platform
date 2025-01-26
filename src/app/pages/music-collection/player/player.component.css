@@ -1,15 +1,20 @@
 .audio-player {
   background-color: rgba(0, 0, 0, 0.8);
 }
-.audio-player *:not(#play-pause-button) {
+.audio-player * {
   color: white;
 }
 
 .controls {
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  margin-top: 10px;
+}
+.controls button {
+  padding: 15px;
+}
+
+.controls i{
+  color: black !important;
 }
 
 .progress {

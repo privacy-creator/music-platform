@@ -1,12 +1,28 @@
 <div class="row">
+  <audio id="audio"></audio>
   <div *ngIf="playerService.showPlayer" class="audio-player col-12">
     <div>
-      <p>{{playerService.songPlaying}}</p>
+      <p>{{ playerService.songPlaying }}</p>
     </div>
-    <div class="controls">
-      <button id="play-pause-button" (click)="playerService.play()">
-        {{ playerService.isPlaying ? 'Pause' : 'Play' }}
-      </button>
+    <div class="controls justify-content-between">
+      <div>
+        <button id="prev-button" (click)="playerService.playPrev()">
+          <i class="fa fa-step-backward"></i>
+        </button>
+        <button id="play-pause-button" (click)="playerService.play()">
+          <i *ngIf="!playerService.isPlaying" class="fa fa-play"></i>
+          <i *ngIf="playerService.isPlaying" class="fa fa-pause"></i>
+        </button>
+        <button id="next-button" (click)="playerService.playNext()">
+          <i class="fa fa-step-forward"></i>
+        </button>
+      </div>
+      <div>
+        <div id="current-time" class="d-inline-block">0:00</div>
+        /
+        <div id="total-time" class="d-inline-block">0:00</div>
+      </div>
+
       <div class="d-inline-block">
         <input
           class="d-inline-block"
@@ -18,8 +34,6 @@
           value="1"
           (input)="playerService.updateVolume($event)"
         />
-        <div id="current-time" class="d-inline-block">0:00</div> /
-        <div id="total-time" class="d-inline-block">0:00</div>
       </div>
     </div>
     <div class="progress" (click)="playerService.seekAudio($event)">

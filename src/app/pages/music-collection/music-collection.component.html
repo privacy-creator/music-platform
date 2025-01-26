@@ -1,21 +1,25 @@
-<div class="search-bar">
-  <input
-    type="text"
-    placeholder="Search by song title"
-    [(ngModel)]="searchQuery"
-    (input)="onSearch()"
-    class="search-input"
-  />
-</div>
-
-<div class="music-list">
-  <div *ngFor="let music of filteredMusic" class="music-item">
-    <div class="music-info">
-      <h3>{{ music.title }}</h3>
+<div class="row">
+  <div class="col-12">
+    <div class="search-bar row">
+      <input
+        type="text"
+        placeholder="Search by song title"
+        [(ngModel)]="searchQuery"
+        (input)="onSearch()"
+        class="search-input col-12"
+      />
     </div>
-    <button (click)="playMusic(music.filename, music.title, music.id)" class="play-button">
-      ▶ Play
-    </button>
+
+    <div class="music-list row">
+      <div *ngFor="let music of filteredMusic" class="music-item col-12">
+        <div class="music-info">
+          <h3>{{ music.title }}</h3>
+        </div>
+        <button [routerLink]="['/music-collection', music.title]" (click)="playMusic(music.filename, music.title, music.id)" class="play-button">
+          ▶ Play
+        </button>
+      </div>
+    </div>
   </div>
 </div>
 

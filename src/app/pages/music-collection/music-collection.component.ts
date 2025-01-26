@@ -1,31 +1,43 @@
-import { Component, OnInit } from '@angular/core';
-import {MusicService} from "../../service/music.service";
-import {PlayerService} from "../../service/player.service";
+import {AfterViewInit, Component, OnInit} from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { MusicService } from "../../service/music.service";
+import { PlayerService } from "../../service/player.service";
 
 @Component({
   selector: 'app-music-collection',
   templateUrl: './music-collection.component.html',
   styleUrls: ['./music-collection.component.css']
 })
-export class MusicCollectionComponent implements OnInit {
+export class MusicCollectionComponent implements AfterViewInit {
   musicList: any[] = [];
   filteredMusic: any[] = [];
   searchQuery: string = '';
 
-  constructor(private musicService: MusicService, private playerService: PlayerService) {}
+  constructor(
+    private musicService: MusicService,
+    private playerService: PlayerService,
+    private route: ActivatedRoute
+  ) {}
 
-  ngOnInit(): void {
+  ngAfterViewInit(): void {
     this.musicService.getMusicList().subscribe(data => {
       this.musicList = data;
       this.filteredMusic = data;
+
+      // Get the title from the route parameters and decode it
+      const titleFromUrl = decodeURIComponent(this.route.snapshot.paramMap.get('title') || '');
+      if (titleFromUrl) {
+        const music = this.musicList.find(m => m.title === titleFromUrl);
+        if (music) {
+          this.playerService.showPlayer = true;
+          this.playMusic(music.filename, music.title, music.id);
+        }
+      }
     });
   }
 
   onSearch(): void {
-    // Convert the search query to lowercase for case-insensitive searching
     const query = this.searchQuery.toLowerCase();
-
-    // Filter the music list based on the title containing the search query
     this.filteredMusic = this.musicList.filter((music) =>
       music.title.toLowerCase().includes(query)
     );
@@ -33,7 +45,6 @@ export class MusicCollectionComponent implements OnInit {
 
   playMusic(filename: string, title: string, id: any): void {
     this.playerService.setPlaylist(this.musicList);
-    // this.playerService.playNext();
     this.playerService.changeAudioSource(filename, title, id);
   }
 }

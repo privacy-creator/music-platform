@@ -3,7 +3,6 @@
 }
 
 .search-input {
-  width: 100%;
   padding: 10px;
   font-size: 16px;
 }
@@ -36,4 +35,11 @@
 
 .play-button:hover {
   background-color: #0056b3;
+}
+
+@media (prefers-color-scheme: dark) {
+  .music-item {
+    background: #2e2e2e !important;
+    color: white !important;
+  }
 }
