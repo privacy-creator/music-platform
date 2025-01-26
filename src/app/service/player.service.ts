@@ -6,28 +6,36 @@ import { Injectable } from '@angular/core';
 export class PlayerService {
   isPlaying = false;
   showPlayer = false;
-  songPlaying: string = "";
+  songPlaying: string = '';
   audioSource: HTMLAudioElement = new Audio();
+  playlist: { title: string; filename: string; id: number }[] = [];
+  currentSongIndex: number = 0;
 
-  constructor() {}
+  constructor() {
+    this.audioSource.addEventListener('ended', () => this.playNext());
+    this.audioSource.addEventListener('timeupdate', () => this.updateProgress());
+  }
 
-  changeAudioSource(audioSource: string, title: string): void {
+  // Add songs to the playlist
+  setPlaylist(songs: { title: string; filename: string; id: number }[]): void {
+    this.playlist = songs;
+    console.log(songs);
+  }
+
+  changeAudioSource(audioSource: string, title: string, id: any): void {
     this.showPlayer = true;
     this.songPlaying = title;
+    this.currentSongIndex = id;
     document.title = title;
-    setTimeout(() => {
-    this.audioSource = document.getElementById('audio') as HTMLAudioElement;
 
       if (this.audioSource) {
           this.audioSource.src = `assets/music/${audioSource}`;
           this.audioSource.play();
           this.isPlaying = true;
       }
-    }, 100); // Timeout of 100 milliseconds (adjust as needed)
   }
 
   public play(): void {
-    this.audioSource = document.getElementById('audio') as HTMLAudioElement;
     if (this.audioSource) {
       if (this.audioSource.paused) {
         this.audioSource.play();
@@ -39,6 +47,22 @@ export class PlayerService {
     } else {
       console.error('Audio element not found');
     }
+  }
+
+  // Play the current song in the playlist
+  private playCurrentSong(): void {
+    const song = this.playlist[this.currentSongIndex];
+    if (song) {
+      this.changeAudioSource(song.filename, song.title, song.id);
+    }
+  }
+
+  // Play the next song in the playlist
+  playNext(): void {
+    if (this.currentSongIndex >= this.playlist.length) {
+      this.currentSongIndex = 0; // Loop back to the start of the playlist
+    }
+    this.playCurrentSong();
   }
 
   public updateProgress(): void {

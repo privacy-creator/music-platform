@@ -1,13 +1,5 @@
 <div class="row">
   <div *ngIf="playerService.showPlayer" class="audio-player col-12">
-    <audio
-      id="audio"
-      (timeupdate)="playerService.updateProgress()"
-      (loadedmetadata)="playerService.updateProgress()"
-    >
-      <source src="" type="audio/mpeg" />
-      Your browser does not support the audio element.
-    </audio>
     <div>
       <p>{{playerService.songPlaying}}</p>
     </div>
