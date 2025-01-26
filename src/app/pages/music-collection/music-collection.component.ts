@@ -31,7 +31,7 @@ export class MusicCollectionComponent implements OnInit {
     );
   }
 
-  playMusic(filename: string): void {
-    this.playerService.changeAudioSource(filename);
+  playMusic(filename: string, title: string): void {
+    this.playerService.changeAudioSource(filename, title);
   }
 }

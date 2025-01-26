@@ -5,17 +5,25 @@ import { Injectable } from '@angular/core';
 })
 export class PlayerService {
   isPlaying = false;
-  showPlayer = true;
+  showPlayer = false;
+  songPlaying: string = "";
   audioSource: HTMLAudioElement = new Audio();
 
   constructor() {}
 
-  changeAudioSource(audioSource: string) {
+  changeAudioSource(audioSource: string, title: string): void {
+    this.showPlayer = true;
+    this.songPlaying = title;
+    document.title = title;
+    setTimeout(() => {
     this.audioSource = document.getElementById('audio') as HTMLAudioElement;
-    if (this.audioSource) {
-      this.audioSource.src = `assets/music/${audioSource}`;
-      this.audioSource.play();
-    }
+
+      if (this.audioSource) {
+          this.audioSource.src = `assets/music/${audioSource}`;
+          this.audioSource.play();
+          this.isPlaying = true;
+      }
+    }, 100); // Timeout of 100 milliseconds (adjust as needed)
   }
 
   public play(): void {

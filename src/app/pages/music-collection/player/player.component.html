@@ -8,25 +8,30 @@
       <source src="" type="audio/mpeg" />
       Your browser does not support the audio element.
     </audio>
+    <div>
+      <p>{{playerService.songPlaying}}</p>
+    </div>
     <div class="controls">
       <button id="play-pause-button" (click)="playerService.play()">
         {{ playerService.isPlaying ? 'Pause' : 'Play' }}
       </button>
-      <input
-        type="range"
-        id="volume-control"
-        min="0"
-        max="1"
-        step="0.01"
-        value="1"
-        (input)="playerService.updateVolume($event)"
-      />
-
+      <div class="d-inline-block">
+        <input
+          class="d-inline-block"
+          type="range"
+          id="volume-control"
+          min="0"
+          max="1"
+          step="0.01"
+          value="1"
+          (input)="playerService.updateVolume($event)"
+        />
+        <div id="current-time" class="d-inline-block">0:00</div> /
+        <div id="total-time" class="d-inline-block">0:00</div>
+      </div>
     </div>
     <div class="progress" (click)="playerService.seekAudio($event)">
       <div class="progress-bar" id="progress-bar"></div>
     </div>
-    <div id="current-time">0:00</div>
-    <div id="total-time">0:00</div>
   </div>
 </div>
