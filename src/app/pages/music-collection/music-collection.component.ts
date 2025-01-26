@@ -1,13 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { ActivatedRoute } from '@angular/router';
-
-interface Song {
-  filename: string;
-  title: string;
-  category: string;
-  language: string;
-}
+import {MusicService} from "../../service/music.service";
+import {PlayerService} from "../../service/player.service";
 
 @Component({
   selector: 'app-music-collection',
@@ -15,64 +8,30 @@ interface Song {
   styleUrls: ['./music-collection.component.css']
 })
 export class MusicCollectionComponent implements OnInit {
-  songs: Song[] = [];
-  filteredSongs: Song[] = [];
-  category: string | null = null;
-  currentlyPlaying: Song | null = null; // Add this property
-  title: string | null = null;
+  musicList: any[] = [];
+  filteredMusic: any[] = [];
+  searchQuery: string = '';
 
-  constructor(private http: HttpClient, private route: ActivatedRoute) {}
+  constructor(private musicService: MusicService, private playerService: PlayerService) {}
 
   ngOnInit(): void {
-    this.loadSongs();
-
-    // Get the category from the route parameter
-    this.route.params.subscribe(params => {
-      this.category = params['category'] || null;
-      this.filterSongs();
-      console.log(params);
-      this.title = params['title'] || null;
-
-      // If a title is provided, auto-play the corresponding song
-      if (this.title) {
-        this.autoPlaySong(this.title);
-      }
-    });
-
-  }
-
-  loadSongs(): void {
-    const musicJson = 'assets/music/music.json';
-
-    this.http.get<Song[]>(musicJson).subscribe((data: Song[]) => {
-      this.songs = data;
-      this.filterSongs();
-
-      // If a title is provided, auto-play the corresponding song
-      if (this.title) {
-        this.autoPlaySong(this.title);
-      }
+    this.musicService.getMusicList().subscribe(data => {
+      this.musicList = data;
+      this.filteredMusic = data;
     });
   }
 
-  filterSongs(): void {
-    if (this.category) {
-      this.filteredSongs = this.songs.filter(song => song.category === this.category);
-    } else {
-      this.filteredSongs = this.songs;
-    }
+  onSearch(): void {
+    // Convert the search query to lowercase for case-insensitive searching
+    const query = this.searchQuery.toLowerCase();
+
+    // Filter the music list based on the title containing the search query
+    this.filteredMusic = this.musicList.filter((music) =>
+      music.title.toLowerCase().includes(query)
+    );
   }
 
-  autoPlaySong(title: string): void {
-    console.log(this.songs);
-    const songToPlay = this.songs.find(song => song.title.toLowerCase() == title.toLowerCase());
-    console.log(songToPlay);
-    if (songToPlay) {
-      this.playSong(songToPlay);
-    }
-  }
-
-  playSong(song: Song): void {
-    this.currentlyPlaying = song;
+  playMusic(filename: string): void {
+    this.playerService.changeAudioSource(filename);
   }
 }

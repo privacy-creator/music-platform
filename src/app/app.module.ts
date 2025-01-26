@@ -7,18 +7,22 @@ import { HomePageComponent } from './pages/home-page/home-page.component';
 import { MusicCollectionComponent } from './pages/music-collection/music-collection.component';
 import {HttpClientModule} from "@angular/common/http";
 import { CategoriesComponent } from './pages/categories/categories.component';
+import { PlayerComponent } from './pages/music-collection/player/player.component';
+import {FormsModule} from "@angular/forms";
 
 @NgModule({
   declarations: [
     AppComponent,
     HomePageComponent,
     MusicCollectionComponent,
-    CategoriesComponent
+    CategoriesComponent,
+    PlayerComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

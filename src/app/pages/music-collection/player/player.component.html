@@ -1,0 +1,32 @@
+<div class="row">
+  <div *ngIf="playerService.showPlayer" class="audio-player col-12">
+    <audio
+      id="audio"
+      (timeupdate)="playerService.updateProgress()"
+      (loadedmetadata)="playerService.updateProgress()"
+    >
+      <source src="" type="audio/mpeg" />
+      Your browser does not support the audio element.
+    </audio>
+    <div class="controls">
+      <button id="play-pause-button" (click)="playerService.play()">
+        {{ playerService.isPlaying ? 'Pause' : 'Play' }}
+      </button>
+      <input
+        type="range"
+        id="volume-control"
+        min="0"
+        max="1"
+        step="0.01"
+        value="1"
+        (input)="playerService.updateVolume($event)"
+      />
+
+    </div>
+    <div class="progress" (click)="playerService.seekAudio($event)">
+      <div class="progress-bar" id="progress-bar"></div>
+    </div>
+    <div id="current-time">0:00</div>
+    <div id="total-time">0:00</div>
+  </div>
+</div>
