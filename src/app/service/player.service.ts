@@ -19,7 +19,6 @@ export class PlayerService {
   // Add songs to the playlist
   setPlaylist(songs: { title: string; filename: string; id: number }[]): void {
     this.playlist = songs;
-    console.log(songs);
   }
 
   changeAudioSource(audioSource: string, title: string, id: any): void {
