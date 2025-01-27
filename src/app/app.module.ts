@@ -9,6 +9,7 @@ import {HttpClientModule} from "@angular/common/http";
 import { CategoriesComponent } from './pages/categories/categories.component';
 import { PlayerComponent } from './pages/music-collection/player/player.component';
 import {FormsModule} from "@angular/forms";
+import { SharePopupComponent } from './pages/music-collection/share-popup/share-popup.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import {FormsModule} from "@angular/forms";
     HomePageComponent,
     MusicCollectionComponent,
     CategoriesComponent,
-    PlayerComponent
+    PlayerComponent,
+    SharePopupComponent
   ],
   imports: [
     BrowserModule,

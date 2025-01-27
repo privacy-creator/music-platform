@@ -20,7 +20,6 @@ export class PlayerService {
 
   changeAudioSource(audioSource: string, title: string, id: any): void {
     this.audioSource = document.getElementById("audio") as HTMLAudioElement;
-    console.log(this.audioSource);
     if (this.audioSource) {
       this.audioSource.addEventListener('ended', () => this.playNext());
       this.audioSource.addEventListener('timeupdate', () => this.updateProgress());
@@ -30,10 +29,7 @@ export class PlayerService {
       document.title = title;
 
       this.audioSource.src = `assets/music/${audioSource}`;
-      this.audioSource.play().then(r => {
-        // @ts-ignore
-        // this.audioSource.muted = false;
-      });
+      this.audioSource.play();
       this.isPlaying = true;
     }
   }
@@ -89,9 +85,11 @@ export class PlayerService {
       const progressPercent = (current / duration) * 100;
       progressBar.style.width = `${progressPercent}%`;
 
-      // Update current time and total time
-      if (currentTime) currentTime.textContent = this.formatTime(current);
-      if (totalTime) totalTime.textContent = this.formatTime(duration);
+      if (!isNaN(current) && !isNaN(duration)) {
+        // Update current time and total time
+        if (currentTime) currentTime.textContent = this.formatTime(current);
+        if (totalTime) totalTime.textContent = this.formatTime(duration);
+      }
     }
   }
 

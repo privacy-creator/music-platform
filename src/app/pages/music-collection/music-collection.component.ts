@@ -9,6 +9,8 @@ import { PlayerService } from "../../service/player.service";
   styleUrls: ['./music-collection.component.css']
 })
 export class MusicCollectionComponent implements AfterViewInit {
+  isSharePopupOpen = false;
+  shareSongTitle: string = "";
   musicList: any[] = [];
   filteredMusic: any[] = [];
   searchQuery: string = '';
@@ -36,6 +38,11 @@ export class MusicCollectionComponent implements AfterViewInit {
     });
   }
 
+  openSharePopup(title: string): void {
+    this.shareSongTitle = title;
+    this.isSharePopupOpen = true;
+  }
+
   onSearch(): void {
     const query = this.searchQuery.toLowerCase();
     this.filteredMusic = this.musicList.filter((music) =>
@@ -46,5 +53,9 @@ export class MusicCollectionComponent implements AfterViewInit {
   playMusic(filename: string, title: string, id: any): void {
     this.playerService.setPlaylist(this.musicList);
     this.playerService.changeAudioSource(filename, title, id);
+  }
+
+  receiveData($event: boolean) {
+    this.isSharePopupOpen = $event;
   }
 }

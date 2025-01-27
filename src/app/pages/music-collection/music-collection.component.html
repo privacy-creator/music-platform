@@ -1,3 +1,5 @@
+<app-share-popup *ngIf="isSharePopupOpen" [songTitle]="shareSongTitle" (dataEmitter)="receiveData($event)"></app-share-popup>
+
 <div class="row">
   <div class="col-12">
     <div class="search-bar row">
@@ -13,11 +15,16 @@
     <div class="music-list row">
       <div *ngFor="let music of filteredMusic" class="music-item col-12">
         <div class="music-info">
-          <h3>{{ music.title }}</h3>
+          <h4>{{ music.title }}</h4>
         </div>
-        <button [routerLink]="['/music-collection', music.title]" (click)="playMusic(music.filename, music.title, music.id)" class="play-button">
-          ▶ Play
-        </button>
+        <div>
+          <button (click)="openSharePopup(music.title)" class="play-button">
+            <i class="fa fa-share"></i> Share
+          </button>
+          <button (click)="playMusic(music.filename, music.title, music.id)" class="play-button">
+            ▶ Play
+          </button>
+        </div>
       </div>
     </div>
   </div>
