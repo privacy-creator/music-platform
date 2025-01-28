@@ -8,6 +8,10 @@
   margin-top: 120px;
 }
 
-html{
-  background: black;
+
+@media (prefers-color-scheme: dark) {
+  html{
+    background: black;
+  }
 }
+
