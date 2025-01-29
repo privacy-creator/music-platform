@@ -11,102 +11,107 @@
   },
   {
     "id": 2,
+    "title": "Corona virus rising",
+    "filename": "Corona virus rising.mp3"
+  },
+  {
+    "id": 3,
     "title": "De Volkskrant is een kut krant",
     "filename": "De Volkskrant is een kut krant.mp3"
   },
   {
-    "id": 3,
+    "id": 4,
     "title": "Don't trust the vax",
     "filename": "Don't trust the vax.mp3"
   },
   {
-    "id": 4,
-    "title": "Egg Raid on XR",
+    "id": 5,
+    "title": "Egg Raid on Extinction Rebellion",
     "filename": "Egg Raid on XR.mp3"
   },
   {
-    "id": 5,
+    "id": 6,
     "title": "Eggs on extinction rebellion",
     "filename": "Eggs on extinction rebellion.mp3"
   },
   {
-    "id": 6,
+    "id": 7,
     "title": "Gasolina y Rebelión",
     "filename": "Gasolina y Rebelión.mp3"
   },
   {
-    "id": 7,
+    "id": 8,
     "title": "Het was maar een wokie",
     "filename": "Het was maar een wokie.mp3"
   },
   {
-    "id": 8,
+    "id": 9,
     "title": "Huevonia, Huevonia!",
     "filename": "Huevonia, Huevonia!.mp3"
   },
   {
-    "id": 9,
-    "title": "Klaas de kip",
+    "id": 10,
+    "title": "Justitia, waar is jouw eer?",
+    "filename": "Zij draagt een blinddoek.mp3"
+  },
+  {
+    "id": 11,
+    "title": "Klaas (Die/Hen)",
     "filename": "Klaas de kip.mp3"
   },
   {
-    "id": 10,
+    "id": 12,
     "title": "La Queja de Greta",
     "filename": "La Queja de Greta.mp3"
   },
   {
-    "id": 11,
+    "id": 13,
     "title": "Marion Koopmans, la bruja malvada",
     "filename": "Marion Koopmans, la bruja malvada.mp3"
   },
   {
-    "id": 12,
+    "id": 14,
+    "title": "Marion Koopmans, what do you brew?",
+    "filename": "Oh Marion Koopmans, what do you brew.mp3"
+  },
+  {
+    "id": 15,
     "title": "Monkeypox experience",
     "filename": "Monkeypox experience.mp3"
   },
   {
-    "id": 13,
+    "id": 16,
     "title": "Necesitamos CO2",
     "filename": "Necesitamos CO2.mp3"
   },
   {
-    "id": 14,
+    "id": 17,
     "title": "No More Fear",
     "filename": "No More Fear.mp3"
   },
   {
-    "id": 15,
-    "title": "Oh Marion Koopmans, what do you brew?",
-    "filename": "Oh Marion Koopmans, what do you brew.mp3"
-  },
-  {
-    "id": 16,
+    "id": 18,
     "title": "Schwabs Schatten",
     "filename": "Schwabs Schatten.mp3"
   },
   {
-    "id": 17,
+    "id": 19,
     "title": "Sly Sigrid the Serpent",
     "filename": "Sly Sigrid the Serpent.mp3"
   },
   {
-    "id": 18,
+    "id": 20,
     "title": "The Climate Scam Song",
     "filename": "The Climate Scam Song.mp3"
   },
   {
-    "id": 19,
+    "id": 21,
     "title": "Wilma is bang",
     "filename": "Wilma is bang.mp3"
   },
   {
-    "id": 20,
+    "id": 22,
     "title": "Woken is harmfull",
     "filename": "Woken is harmfull.mp3"
-  },
-  {
-    "id": 21,
-    "title": "Zij draagt een blinddoek",
-    "filename": "Zij draagt een blinddoek.mp3"
   }
 ]
