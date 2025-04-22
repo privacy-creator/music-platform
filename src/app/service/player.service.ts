@@ -1,4 +1,5 @@
 import {Injectable} from '@angular/core';
+import {MusicService} from "./music.service";
 
 @Injectable({
   providedIn: 'root'
@@ -9,9 +10,17 @@ export class PlayerService {
   songPlaying: string = '';
   audioSource: HTMLAudioElement | undefined;
   playlist: { title: string; filename: string; id: number }[] = [];
+  musicList: any[] = [];
+  filteredMusic: any[] = [];
+
   currentSongIndex: number = 0;
 
-  constructor() {}
+  constructor(private musicService: MusicService) {
+    this.musicService.getMusicList().subscribe(data => {
+      this.musicList = data;
+      this.filteredMusic = data;
+    });
+  }
 
   // Add songs to the playlist
   setPlaylist(songs: { title: string; filename: string; id: number }[]): void {
@@ -23,6 +32,9 @@ export class PlayerService {
     if (this.audioSource) {
       this.audioSource.addEventListener('ended', () => this.playNext());
       this.audioSource.addEventListener('timeupdate', () => this.updateProgress());
+      this.audioSource.addEventListener('play', () => this.isPlaying = true);
+      this.audioSource.addEventListener('pause', () => this.isPlaying = false);
+
       this.showPlayer = true;
       this.songPlaying = title;
       this.currentSongIndex = id;
@@ -30,7 +42,7 @@ export class PlayerService {
 
       this.audioSource.src = `assets/music/${audioSource}`;
       this.audioSource.play();
-      this.isPlaying = true;
+      // this.isPlaying = true;
     }
   }
 
@@ -38,10 +50,10 @@ export class PlayerService {
     if (this.audioSource) {
       if (this.audioSource.paused) {
         this.audioSource.play();
-        this.isPlaying = true;
+        // this.isPlaying = true;
       } else {
         this.audioSource.pause();
-        this.isPlaying = false;
+        // this.isPlaying = false;
       }
     } else {
       console.error('Audio element not found');

@@ -113,5 +113,60 @@
     "id": 22,
     "title": "Woken is harmfull",
     "filename": "Woken is harmfull.mp3"
+  },
+  {
+    "id": 23,
+    "title": "El lamento de Pascua",
+    "filename": "El lamento de Pascua.mp3"
+  },
+  {
+    "id": 24,
+    "title": "Every breath you take",
+    "filename": "Every breath you take.mp3"
+  },
+  {
+    "id": 25,
+    "title": "La Broma de los Huevos",
+    "filename": "La Broma de los Huevos.mp3"
+  },
+  {
+    "id": 26,
+    "title": "Más CO2 pa' la Naturaleza",
+    "filename": "Más CO2 pa' la Naturaleza.mp3"
+  },
+  {
+    "id": 27,
+    "title": "Money Down the Drain",
+    "filename": "Money Down the Drain.mp3"
+  },
+  {
+    "id": 28,
+    "title": "Pace Senza Catene",
+    "filename": "Pace Senza Catene.mp3"
+  },
+  {
+    "id": 29,
+    "title": "Paz en la Tierra",
+    "filename": "Paz en la Tierra.mp3"
+  },
+  {
+    "id": 30,
+    "title": "Paz Sin Cadenas",
+    "filename": "Paz Sin Cadenas.mp3"
+  },
+  {
+    "id": 31,
+    "title": "Paz y Libertad",
+    "filename": "Paz y Libertad.mp3"
+  },
+  {
+    "id": 32,
+    "title": "Salsa con huevos",
+    "filename": "Salsa con huevos.mp3"
+  },
+  {
+    "id": 33,
+    "title": "Waiting in Line",
+    "filename": "Waiting in Line.mp3"
   }
 ]

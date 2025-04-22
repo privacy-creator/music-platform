@@ -13,5 +13,9 @@
   html{
     background: black;
   }
+
+  *:not(.search-input){
+    color: white;
+  }
 }
 
