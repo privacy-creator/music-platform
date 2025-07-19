@@ -2,7 +2,7 @@
   <audio id="audio"></audio>
   <div *ngIf="playerService.showPlayer" class="audio-player col-12">
     <div>
-      <p>{{ playerService.songPlaying }}</p>
+      <a routerLink="music-collection/{{playerService.songPlaying}}">{{ playerService.songPlaying }}</a>
     </div>
     <div class="controls justify-content-between">
       <div>

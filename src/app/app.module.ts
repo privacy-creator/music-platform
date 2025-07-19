@@ -10,6 +10,7 @@ import { CategoriesComponent } from './pages/categories/categories.component';
 import { PlayerComponent } from './pages/music-collection/player/player.component';
 import {FormsModule} from "@angular/forms";
 import { SharePopupComponent } from './pages/music-collection/share-popup/share-popup.component';
+import { MusicDetailComponent } from './pages/music-collection/music-detail/music-detail.component';
 // import { MusicDetailComponent } from './pages/music-collection/music-detail/music-detail.component';
 
 @NgModule({
@@ -20,6 +21,7 @@ import { SharePopupComponent } from './pages/music-collection/share-popup/share-
     CategoriesComponent,
     PlayerComponent,
     SharePopupComponent,
+    MusicDetailComponent,
     // MusicDetailComponent
   ],
   imports: [
