@@ -1,132 +1,182 @@
 import {Injectable} from '@angular/core';
 import {MusicService} from "./music.service";
 
+interface Song {
+    title: string;
+    filename: string;
+    id: number;
+}
+
+interface AudioProgress {
+    current: number;
+    duration: number;
+    percentage: number;
+}
+
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root'
 })
 export class PlayerService {
-  isPlaying = false;
-  showPlayer = false;
-  songPlaying: string = '';
-  audioSource: HTMLAudioElement | undefined;
-  playlist: { title: string; filename: string; id: number }[] = [];
-  musicList: any[] = [];
-  filteredMusic: any[] = [];
+    private static readonly AUDIO_ELEMENT_ID = 'audio';
+    private static readonly PROGRESS_BAR_ID = 'progress-bar';
+    private static readonly CURRENT_TIME_ID = 'current-time';
+    private static readonly TOTAL_TIME_ID = 'total-time';
+    private static readonly MUSIC_ASSETS_PATH = 'assets/music/';
 
-  currentSongIndex: number = 0;
+    private _isPlaying = false;
+    private _showPlayer = false;
+    private _songPlaying = '';
+    private _audioSource: HTMLAudioElement | undefined;
+    private _playlist: Song[] = [];
+    private _musicList: Song[] = [];
+    private _filteredMusic: Song[] = [];
+    private _currentSongIndex = 0;
 
-  constructor(private musicService: MusicService) {
-    this.musicService.getMusicList().subscribe(data => {
-      this.musicList = data;
-      this.filteredMusic = data;
-    });
-  }
-
-  // Add songs to the playlist
-  setPlaylist(songs: { title: string; filename: string; id: number }[]): void {
-    this.playlist = songs;
-  }
-
-  changeAudioSource(audioSource: string, title: string, id: any): void {
-    this.audioSource = document.getElementById("audio") as HTMLAudioElement;
-    if (this.audioSource) {
-      this.audioSource.addEventListener('ended', () => this.playNext());
-      this.audioSource.addEventListener('timeupdate', () => this.updateProgress());
-      this.audioSource.addEventListener('play', () => this.isPlaying = true);
-      this.audioSource.addEventListener('pause', () => this.isPlaying = false);
-
-      this.showPlayer = true;
-      this.songPlaying = title;
-      this.currentSongIndex = id;
-      document.title = title;
-
-      this.audioSource.src = `assets/music/${audioSource}`;
-      this.audioSource.play();
-      // this.isPlaying = true;
+    constructor(private musicService: MusicService) {
+        this.musicService.getMusicList().subscribe(data => {
+            this._musicList = data;
+            this._filteredMusic = data;
+        });
     }
-  }
 
-  public play(): void {
-    if (this.audioSource) {
-      if (this.audioSource.paused) {
-        this.audioSource.play();
-        // this.isPlaying = true;
-      } else {
-        this.audioSource.pause();
-        // this.isPlaying = false;
-      }
-    } else {
-      console.error('Audio element not found');
+    get isPlaying(): boolean {
+        return this._isPlaying;
     }
-  }
 
-  // Play the current song in the playlist
-  private playCurrentSong(): void {
-    const song = this.playlist[this.currentSongIndex];
-    if (song) {
-      this.changeAudioSource(song.filename, song.title, song.id);
+    get showPlayer(): boolean {
+        return this._showPlayer;
     }
-  }
 
-  playNext(): void {
-    this.currentSongIndex++;
-    if (this.currentSongIndex >= this.playlist.length) {
-      this.currentSongIndex = 0; // Loop back to the start of the playlist
+    set showPlayer(value: boolean) {
+        this._showPlayer = value;
     }
-    this.playCurrentSong();
-  }
 
-  playPrev(): void {
-    this.currentSongIndex--;
-    if (this.currentSongIndex >= this.playlist.length) {
-      this.currentSongIndex = 0; // Loop back to the start of the playlist
+    get songPlaying(): string {
+        return this._songPlaying;
     }
-    this.playCurrentSong();
-  }
 
-  public updateProgress(): void {
-    const progressBar = document.getElementById('progress-bar') as HTMLDivElement;
-    const currentTime = document.getElementById('current-time');
-    const totalTime = document.getElementById('total-time');
-
-    if (this.audioSource && progressBar) {
-      const current = this.audioSource.currentTime;
-      const duration = this.audioSource.duration;
-
-      // Update progress bar width
-      const progressPercent = (current / duration) * 100;
-      progressBar.style.width = `${progressPercent}%`;
-
-      if (!isNaN(current) && !isNaN(duration)) {
-        // Update current time and total time
-        if (currentTime) currentTime.textContent = this.formatTime(current);
-        if (totalTime) totalTime.textContent = this.formatTime(duration);
-      }
+    get currentSongIndex(): number {
+        return this._currentSongIndex;
     }
-  }
 
-  private formatTime(seconds: number): string {
-    const minutes = Math.floor(seconds / 60);
-    const secs = Math.floor(seconds % 60);
-    return `${minutes}:${secs < 10 ? '0' : ''}${secs}`;
-  }
-
-  public updateVolume(event: Event): void {
-    const inputElement = event.target as HTMLInputElement;
-    if (this.audioSource && inputElement) {
-      this.audioSource.volume = parseFloat(inputElement.value);
+    setPlaylist(songs: Song[]): void {
+        this._playlist = songs;
     }
-  }
 
-  public seekAudio(event: MouseEvent): void {
-    const progressContainer = event.target as HTMLElement;
-    const rect = progressContainer.getBoundingClientRect();
-    const clickX = event.clientX - rect.left;
-    const width = progressContainer.offsetWidth;
-
-    if (this.audioSource && this.audioSource.duration) {
-      const duration = this.audioSource.duration;
-      this.audioSource.currentTime = (clickX / width) * duration;
+    changeAudioSource(audioSource: string, title: string, id: number): void {
+        this._audioSource = document.getElementById(PlayerService.AUDIO_ELEMENT_ID) as HTMLAudioElement;
+        if (this._audioSource) {
+            this.setupAudioEventListeners();
+            this.updatePlayerState(title, id);
+            this.loadAndPlayAudio(audioSource);
+        }
     }
-  }
+
+    private setupAudioEventListeners(): void {
+        if (!this._audioSource) return;
+
+        this._audioSource.addEventListener('ended', () => this.playNext());
+        this._audioSource.addEventListener('timeupdate', () => this.updateProgress());
+        this._audioSource.addEventListener('play', () => this._isPlaying = true);
+        this._audioSource.addEventListener('pause', () => this._isPlaying = false);
+    }
+
+    private updatePlayerState(title: string, id: number): void {
+        this._showPlayer = true;
+        this._songPlaying = title;
+        this._currentSongIndex = id;
+        document.title = title;
+    }
+
+    private loadAndPlayAudio(audioSource: string): void {
+        if (!this._audioSource) return;
+
+        this._audioSource.src = `${PlayerService.MUSIC_ASSETS_PATH}${audioSource}`;
+        this._audioSource.play();
+    }
+
+    play(): void {
+        if (!this._audioSource) {
+            console.error('Audio element not found');
+            return;
+        }
+
+        this._audioSource.paused ? this._audioSource.play() : this._audioSource.pause();
+    }
+
+    private playCurrentSong(): void {
+        const song = this._playlist[this._currentSongIndex];
+        if (song) {
+            this.changeAudioSource(song.filename, song.title, song.id);
+        }
+    }
+
+    playNext(): void {
+        this._currentSongIndex = (this._currentSongIndex + 1) % this._playlist.length;
+        this.playCurrentSong();
+    }
+
+    playPrev(): void {
+        this._currentSongIndex = this._currentSongIndex - 1 < 0 ?
+            this._playlist.length - 1 : this._currentSongIndex - 1;
+        this.playCurrentSong();
+    }
+
+    updateProgress(): void {
+        const progress = this.calculateProgress();
+        if (!progress) return;
+
+        this.updateProgressUI(progress);
+    }
+
+    private calculateProgress(): AudioProgress | null {
+        if (!this._audioSource) return null;
+
+        return {
+            current: this._audioSource.currentTime,
+            duration: this._audioSource.duration,
+            percentage: (this._audioSource.currentTime / this._audioSource.duration) * 100
+        };
+    }
+
+    private updateProgressUI(progress: AudioProgress): void {
+        const progressBar = document.getElementById(PlayerService.PROGRESS_BAR_ID) as HTMLDivElement;
+        const currentTime = document.getElementById(PlayerService.CURRENT_TIME_ID);
+        const totalTime = document.getElementById(PlayerService.TOTAL_TIME_ID);
+
+        if (progressBar) {
+            progressBar.style.width = `${progress.percentage}%`;
+        }
+
+        if (!isNaN(progress.current) && !isNaN(progress.duration)) {
+            if (currentTime) currentTime.textContent = this.formatTime(progress.current);
+            if (totalTime) totalTime.textContent = this.formatTime(progress.duration);
+        }
+    }
+
+    private formatTime(seconds: number): string {
+        const minutes = Math.floor(seconds / 60);
+        const secs = Math.floor(seconds % 60);
+        return `${minutes}:${secs.toString().padStart(2, '0')}`;
+    }
+
+    updateVolume(event: Event): void {
+        if (!this._audioSource) return;
+
+        const inputElement = event.target as HTMLInputElement;
+        if (inputElement) {
+            this._audioSource.volume = parseFloat(inputElement.value);
+        }
+    }
+
+    seekAudio(event: MouseEvent): void {
+        if (!this._audioSource?.duration) return;
+
+        const progressContainer = event.target as HTMLElement;
+        const rect = progressContainer.getBoundingClientRect();
+        const clickX = event.clientX - rect.left;
+        const width = progressContainer.offsetWidth;
+
+        this._audioSource.currentTime = (clickX / width) * this._audioSource.duration;
+    }
 }
